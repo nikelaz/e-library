@@ -26,6 +26,6 @@ The next part of the registration is to create a POST endpoint of the users cont
 
 `userController POST request`
 
-The HTTP protocol is utilized for error handling, by sending a 500 (internal server error) status code and an error message to the client in case of a database, server or validation error. In the view this is handled elegantly using the JavaScript Fetch API:
+The HTTP protocol is utilized for error handling, by sending a 500 (internal server error) status code and an error message to the client in case of a database, server or validation error. In the view this is handled elegantly using the JavaScript Fetch API and an error or success message is shown to the user:
 
 `register fetch code error handling`
