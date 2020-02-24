@@ -37,18 +37,15 @@ const Register = () => {
       })
     })
       .then(res => {
-        if (res.ok) return res.text();
-        
-        throw new Error(res);
+        if (res.ok) return res.text(); 
+        throw res;
       })
       .then(res => {
         if (res !== '') setSuccess(res);
       })
-      .catch(err => {
-        err.text().then(errorMessage => {
-          throw new Error(errorMessage);
-        })
-        .catch(err => { throw new Error(err.message) });
+      .catch(res => {
+        res.text()
+          .then(err => setError(err));
       });
   };
 
@@ -60,21 +57,22 @@ const Register = () => {
         <div className="col-md-6">
           <ErrorMessage message={error} />
           <SuccessMessage message={success} />
+          
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label for="emailInput">Email address</label>
+              <label htmlFor="emailInput">Email address</label>
               <input type="email" className="form-control" id="emailInput" onChange={e => setEmail(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label for="passInput">Password</label>
+              <label htmlFor="passInput">Password</label>
               <input type="password" className="form-control" id="passInput" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" onChange={e => setPass(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label for="repeatPassInput">Repeat Password</label>
+              <label htmlFor="repeatPassInput">Repeat Password</label>
               <input type="password" className="form-control" id="repeatPassInput" onChange={e => setRepeatPass(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label for="phoneInput">Phone Number</label>
+              <label htmlFor="phoneInput">Phone Number</label>
               <input type="tel" className="form-control" id="phoneInput" onChange={e => setPhone(e.target.value)} required />
             </div>
             <button type="submit" className="btn btn-primary">Register</button>
