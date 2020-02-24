@@ -12,7 +12,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Set error to null by default
     setError(null);
     setSuccess(null);
@@ -37,7 +37,7 @@ const Register = () => {
       })
     })
       .then(res => {
-        if (res.ok) return res.text(); 
+        if (res.ok) return res.text();
         throw res;
       })
       .then(res => {
@@ -62,11 +62,11 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="emailInput">Email address</label>
-                <input type="email" className="form-control" id="emailInput" onChange={e => setEmail(e.target.value)} required />
+                <input type="text" className="form-control" id="emailInput" onChange={e => setEmail(e.target.value)} required />
               </div>
               <div className="form-group">
                 <label htmlFor="passInput">Password</label>
-                <input type="password" className="form-control" id="passInput" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" onChange={e => setPass(e.target.value)} required />
+                <input type="password" className="form-control" id="passInput" onChange={e => setPass(e.target.value)} required />
               </div>
               <div className="form-group">
                 <label htmlFor="repeatPassInput">Repeat Password</label>
@@ -74,7 +74,7 @@ const Register = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="phoneInput">Phone Number</label>
-                <input type="tel" className="form-control" id="phoneInput" onChange={e => setPhone(e.target.value)} required />
+                <input type="text" className="form-control" id="phoneInput" onChange={e => setPhone(e.target.value)} required />
               </div>
               <button type="submit" className="btn btn-primary">Register</button>
             </form>
