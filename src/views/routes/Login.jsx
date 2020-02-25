@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ErrorMessage from '../components/Error.jsx';
 import SuccessMessage from '../components/Success.jsx';
 
-const Register = () => {
+const Login = () => {
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [repeatPass, setRepeatPass] = useState('');
@@ -84,6 +85,6 @@ const Register = () => {
     </div>
   
   );
-};
+}
 
-export default Register;
+export default Login;
