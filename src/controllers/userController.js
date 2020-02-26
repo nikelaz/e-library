@@ -114,7 +114,7 @@ module.exports = () => {
   */
 
 
-  app.get('/api/logout?token=', (req, res) => {
+  app.get('/api/logout', (req, res) => {
     
     // Get the token
     const { query } = req;

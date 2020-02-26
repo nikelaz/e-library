@@ -24,8 +24,8 @@ app.use(express.static('./dist'));
 app.use(bodyParser.json());
 
 // Initialize Controllers
-viewController();
 userController();
+viewController();
 
 app.listen(config.port);
 
