@@ -1,3 +1,5 @@
+// Used to get the token from the localStorage
+
 export function getFromStorage(key) {
     if (!key) {
       return null;
@@ -12,6 +14,8 @@ export function getFromStorage(key) {
     }
   }
   
+// Used to set the token to the localStorage with the user as a parameter 'obj'
+
 export function setInStorage(key, obj) {
   if (!key) {
     console.error('Error: Key is missing');

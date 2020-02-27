@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import ErrorMessage from '../components/Error.jsx';
 import SuccessMessage from '../components/Success.jsx';
-import {
-    setInStorage,
-    getFromStorage,
-  } from '../../utils/storage.js';
+import { setInStorage } from '../../utils/storage.js';
 
 const Login = (props) => {
 
@@ -20,8 +17,6 @@ const Login = (props) => {
 
         e.preventDefault();
 
-        setIsLoading('true');
-
         fetch('/api/login', {
             method: 'POST',
             headers: {
@@ -35,15 +30,11 @@ const Login = (props) => {
             .then(json => {
               if (json.success) {
                 setInStorage('e-library', { token: json.token });
-                setIsLoading('false');
                 setSignInEmail('');
                 setSignInPass('');
                 props.setToken(json.token);
-                setSignInError(json.message);
                 setSuccess('Success');
               } else {
-                  setSignInError(json.message);
-                  setIsLoading('false');
                   setError('Error');
               }
             });

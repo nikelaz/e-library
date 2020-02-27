@@ -24,7 +24,7 @@ const renderLoginLinks = (props) => {
 };
 
 const logout = (props) => {
-  console.log(props);
+  
   const obj = getFromStorage('e-library');
 
   if (obj && obj.token) {

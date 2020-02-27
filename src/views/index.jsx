@@ -15,7 +15,9 @@ const Index = () => {
   const [ tok, setToken ] = useState('');
 
   useEffect(() => {
+    
     const obj = getFromStorage('e-library');
+
     if (obj && obj.token) {
       const { token } = obj;
 

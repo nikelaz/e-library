@@ -60,7 +60,7 @@ module.exports = () => {
         console.log('err 2:', err);
         return res.send({
           success: false,
-          message: 'Error: server error'
+          message: 'Error: Email does not exist!'
         });
       }
 
@@ -77,23 +77,21 @@ module.exports = () => {
       if (!comparison) {
         return res.send({
           success: false,
-          message: 'Error: Invalid'
+          message: 'Error: Password is not correct!'
         });
       }      
       
       // Otherwise correct user
      
       const userSession = new UserSession();
-     
       userSession.userId = user._id;
      
       userSession.save((err, doc) => {
-
         if (err) {
           console.log(err);
           return res.send({
             success: false,
-            message: 'Error: server error'
+            message: 'Error: Server error'
           });
         }        
 
@@ -102,9 +100,7 @@ module.exports = () => {
           message: 'Valid sign in',
           token: doc._id
         });
-
       });
-
     });
   });
 
@@ -121,27 +117,24 @@ module.exports = () => {
     const { token } = query;
 
     // Verify the token is one of a kind and it's not deleted.    
-    UserSession.findOneAndUpdate({ _id: token, isDeleted: false}, 
-      { 
+    UserSession.findOneAndUpdate({ _id: token, isDeleted: false}, { 
         $set: {
           isDeleted:true
         }
-    }, 
-    null, 
-    (err) => {
-      if (err) {
-        console.log(err);
-        return res.send({
-          success: false,
-          message: 'Error: Server error'
-        });
-      }   
+      }, null, (err) => {
+            if (err) {
+              console.log(err);
+              return res.send({
+                success: false,
+                message: 'Error: Server error'
+              });
+            }   
 
-      return res.send({
-        success: true,
-        message: 'Good'
-      });
-    });
+              return res.send({
+                success: true,
+                message: 'Good'
+              });
+            });
   });
 
   /*
@@ -155,7 +148,8 @@ module.exports = () => {
     const { query } = req;
     const { token } = query;
 
-    // ?token=test    // Verify the token is one of a kind and it's not deleted.    
+    // Verify the token is one of a kind and it's not deleted.   
+
     UserSession.find({
       _id: token,
       isDeleted: false
@@ -164,7 +158,7 @@ module.exports = () => {
         console.log(err);
         return res.send({
           success: false,
-          message: 'Error: Server error'
+          message: 'Error: User Not Found!'
         });
       }      
       if (sessions.length != 1) {
@@ -175,10 +169,10 @@ module.exports = () => {
       } else {
         return res.send({
           success: true,
-          message: 'Good'
+          message: 'User Found!'
         });
       }
     });
   });
-
+  
 };
