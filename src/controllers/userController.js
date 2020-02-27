@@ -73,7 +73,7 @@ module.exports = () => {
 
       const user = users[0];
 
-      let comparison = bcrypt.compareSync(password, user.password);
+      let comparison = user.comparePassword(password);
       if (!comparison) {
         return res.send({
           success: false,
@@ -149,7 +149,7 @@ module.exports = () => {
    * Used to verify user's token 
   */
 
-  app.get('/api/verify?token=', (req, res) => {
+  app.get('/api/verify', (req, res) => {
 
     //Get the token
     const { query } = req;

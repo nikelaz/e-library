@@ -1,7 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getFromStorage } from '../../utils/storage';
 
-const Header = () => (
+const renderLoginLinks = (props) => {
+  if (!props.tok) {
+    return (
+      <React.Fragment>
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">Register</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">Login</Link>
+        </li>
+      </React.Fragment>
+    );
+  }
+
+  return (
+    <li className="nav-item">
+      <span class="nav-link" onClick={() => { logout(props); }} style={{ cursor: 'pointer' }}>Logout</span>
+    </li>
+  );
+};
+
+const logout = (props) => {
+  console.log(props);
+  const obj = getFromStorage('e-library');
+
+  if (obj && obj.token) {
+
+    const { token } = obj;
+
+    // Verify token
+    fetch('/api/logout?token=' + token)
+      .then(res => res.json())
+      .then(json => {
+        if (json.success){
+            props.setToken('');
+        }
+      });
+  } else {
+    props.setToken(false);
+  }
+}
+
+const Header = (props) => (
   <header>
     <div className="container">
       <div className="row">
@@ -16,12 +59,7 @@ const Header = () => (
                 <li className="nav-item">
                   <Link className="nav-link" to="/">Home</Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
-                </li>
+                { renderLoginLinks(props) }
               </ul>
             </div>
           </nav>

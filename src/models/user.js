@@ -65,8 +65,8 @@ userSchema.pre('save', function(next) {
  * Allows comparison of the user object's hashed password with a non-hashed string password
  * @returns callback(result: Boolean)
  */
-userSchema.methods.comparePassword = function(plaintext, callback) {
-  return callback(bcrypt.compareSync(plaintext, this.password));
+userSchema.methods.comparePassword = function(plaintext) {
+  return bcrypt.compareSync(plaintext, this.password);
 };
 
 const User = mongoose.model('User', userSchema);

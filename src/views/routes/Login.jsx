@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import ErrorMessage from '../components/Error.jsx';
 import SuccessMessage from '../components/Success.jsx';
 import {
@@ -6,38 +7,14 @@ import {
     getFromStorage,
   } from '../../utils/storage.js';
 
-const Login = () => {
+const Login = (props) => {
 
     const [signInEmail, setSignInEmail] = useState('');
     const [signInPass, setSignInPass] = useState('');
     const [isLoading, setIsLoading] = useState('true');
     const [signInError, setSignInError] = useState('null');
-    const [tok, setToken] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-
-
-    useEffect(() => {
-
-        const obj = getFromStorage('e-library');
-        if (obj && obj.token) {
-        const { token } = obj;
-
-        // Verify token
-        fetch('/api/verify?token=' + token)
-            .then(res => res.json())
-            .then(json => {
-            if (json.success) {
-                setToken(token);
-                setIsLoading('false');
-            } else {
-                setIsLoading('false');
-            }
-            });
-        } else {
-        setIsLoading('false');
-        }
-    }, []);
 
     const handleSubmit = (e) => {
 
@@ -61,7 +38,7 @@ const Login = () => {
                 setIsLoading('false');
                 setSignInEmail('');
                 setSignInPass('');
-                setToken(json.token);
+                props.setToken(json.token);
                 setSignInError(json.message);
                 setSuccess('Success');
               } else {
@@ -71,35 +48,9 @@ const Login = () => {
               }
             });
     }
-
-    const logout = () => {
-        setIsLoading('true');
-
-        const obj = getFromStorage('e-library');
-
-        if (obj && obj.token) {
-
-          const { token } = obj;
-
-          // Verify token
-          fetch('/api/logout?token=' + token)
-            .then(res => {
-              return res.json()})
-            .then(json => {if (json.success){
-                  setToken('');
-                  setIsLoading('false');
-              } else {
-                setIsLoading('false');
-              }
-            });
-        } else {
-          setIsLoading('false');
-          setToken(false);
-        }
-    }
  
     
-if (!tok) {
+if (!props.tok) {
     return (
         <div id="Login">
 
@@ -136,14 +87,7 @@ if (!tok) {
     );
   }
 
-  return (
-        <div id="Home">
-            <div className="container">
-            <h1>Welcome to Login</h1>
-            <button onClick={logout}>Logout</button>
-            </div>
-        </div>
-  );
+  return <Redirect to="/home" />;
 }
   
 export default Login;
