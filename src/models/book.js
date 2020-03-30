@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+/**
+  * Year validator
+  * 4 consecutive integers
+  * @returns Boolean
+  */
+ const yearValidator = value => {
+  const yearRegEx = /^\d{4}$/;
+  return yearRegEx.test(value);
+};
+
 const bookSchema = new mongoose.Schema({
   title: {
     type: String,
