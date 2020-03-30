@@ -17,9 +17,14 @@ const renderLoginLinks = (props) => {
   }
 
   return (
-    <li className="nav-item">
-      <span class="nav-link" onClick={() => { logout(props); }} style={{ cursor: 'pointer' }}>Logout</span>
-    </li>
+    <React.Fragment>
+      <li className="nav-item">
+        <Link className="nav-link" to="/add-book">Add Book</Link>
+      </li>
+      <li className="nav-item">
+        <span class="nav-link" onClick={() => { logout(props); }} style={{ cursor: 'pointer' }}>Logout</span>
+      </li>
+    </React.Fragment>
   );
 };
 
