@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const viewController = require('./src/controllers/viewController');
 const userController = require('./src/controllers/userController');
+const bookController = require('./src/controllers/bookController');
 
 // Initialize Express
 global.app = express();
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 
 // Initialize Controllers
 userController();
+bookController();
 viewController();
 
 app.listen(config.port);
