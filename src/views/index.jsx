@@ -42,7 +42,7 @@ const Index = () => {
           <Login tok={tok} setToken={setToken} />
         </Route>
         <Route path="/add-book">
-          <AddBook />
+          <AddBook tok={tok} />
         </Route>
         <Route path="/">
           <Home />

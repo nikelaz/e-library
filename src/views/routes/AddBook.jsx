@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import ErrorMessage from '../components/Error.jsx';
 import SuccessMessage from '../components/Success.jsx';
 
-const AddBook = () => {
+const AddBook = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [author, setAuthor] = useState('');
@@ -25,6 +25,7 @@ const AddBook = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        token: props.tok,
         book: {
           title,
           description,
