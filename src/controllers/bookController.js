@@ -1,4 +1,5 @@
 const Book = require('../models/book');
+const UserSession = require('../models/session')
 
 module.exports = () => {
   /**
@@ -6,11 +7,22 @@ module.exports = () => {
    * Used for book creation
    */
   app.post('/api/books', (req, res) => {
-    // Create new book and save it in the database
-    const newBook = new Book(req.body.book);
-    newBook.save((error) => {
-      if (error) res.status(500).end(error.message);
-      return res.status(200).end('Book created successfully.');
+    const sessionQuery = {
+      _id: req.body.token,
+      isDeleted: false
+    };
+
+    // Verify the user token
+    UserSession.find(sessionQuery, (error, sessions) => {
+      if (error) return res.status(500).end(error.message);
+      if (sessions.length != 1) return res.status(500).end('You are unauthorized to add a book. Login first.');
+
+      // Create new book and save it in the database
+      const newBook = new Book(req.body.book);
+      newBook.save((error) => {
+        if (error) res.status(500).end(error.message);
+        return res.status(200).end('Book created successfully.');
+      });
     });
   });
 };
