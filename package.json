@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index",
     "build": "webpack --mode production",
+    "prewatch": "npm run build",
     "watch": "concurrently \"npm run watch:server\" \"npm run watch:view\"",
     "watch:server": "nodemon index",
     "watch:view": "webpack -w --mode development"
