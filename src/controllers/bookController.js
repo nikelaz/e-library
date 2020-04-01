@@ -25,4 +25,19 @@ module.exports = () => {
       });
     });
   });
+
+  /**
+   * GET method
+   * Used to get all the books
+   */
+  app.get('/api/getBooks', (req, res) => {
+    Book.find((error, data) => {
+      if (error) {
+        return next(error)
+      } else {
+        res.json(data)
+      }
+    })
+  })
+
 };

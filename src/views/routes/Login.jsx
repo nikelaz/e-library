@@ -8,8 +8,6 @@ const Login = (props) => {
 
     const [signInEmail, setSignInEmail] = useState('');
     const [signInPass, setSignInPass] = useState('');
-    const [isLoading, setIsLoading] = useState('true');
-    const [signInError, setSignInError] = useState('null');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
