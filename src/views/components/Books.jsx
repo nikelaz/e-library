@@ -15,7 +15,8 @@ const Books = () => {
             }
           ) 
 
-    const reversedArr = books.reverse()
+    const reversedArr = books.reverse().slice(0,5)
+
 
     const mappedData = reversedArr.map((card, i) => {
         return(
