@@ -11,6 +11,7 @@ import Home from './routes/Home.jsx';
 import Register from './routes/Register.jsx';
 import Login from './routes/Login.jsx';
 import AddBook from './routes/AddBook.jsx';
+import Search from './routes/Search.jsx';
 
 const Index = () => {
   const [ tok, setToken ] = useState('');
@@ -43,6 +44,9 @@ const Index = () => {
         </Route>
         <Route path="/add-book">
           <AddBook tok={tok} />
+        </Route>
+        <Route path="/search">
+          <Search />
         </Route>
         <Route path="/">
           <Home />

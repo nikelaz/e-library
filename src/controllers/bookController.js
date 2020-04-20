@@ -61,14 +61,16 @@ module.exports = () => {
       return res.status(500).end(error.message);
     }
 
+    if (!books || books.length === 0) return res.json([]);
+
     // Count occurences of search query of each book and add
     // the book and number of occurences to an object
     const booksAndOccurences = books.map(book => {
-      // Stringifying JSON for faster string search
-      const bookStr = JSON.stringify(book);
+      // Stringifying attribute values for faster string search
+      const bookStr = `${book.title} ${book.author} ${book.description}`;
 
       // Record number of occurences using .match string regex search
-      const occurences = bookStr.match(new RegExp(req.params.query, 'g')).length;
+      const occurences = (bookStr.match(new RegExp(req.params.query, 'gi')) || []).length;
 
       // Set the occurences property in the book object
       return {
