@@ -11,6 +11,8 @@ import Home from './routes/Home.jsx';
 import Register from './routes/Register.jsx';
 import Login from './routes/Login.jsx';
 import AddBook from './routes/AddBook.jsx';
+import Edit from './routes/Edit.jsx';
+import Books from './components/Books.jsx';
 
 const Index = () => {
   const [ tok, setToken ] = useState('');
@@ -33,6 +35,7 @@ const Index = () => {
 
   return (
     <Router>
+      
       <Header tok={tok} setToken={setToken} />
       <Switch>
         <Route path="/register">
@@ -44,8 +47,12 @@ const Index = () => {
         <Route path="/add-book">
           <AddBook tok={tok} />
         </Route>
+        <Route path="/edit-book" component={Edit}/>
+        {/* <Route>
+          <Books tok={tok} />
+        </Route> */}
         <Route path="/">
-          <Home />
+          <Home tok={tok}/>
         </Route>
       </Switch>
     </Router>

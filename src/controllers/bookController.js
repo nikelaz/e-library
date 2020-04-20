@@ -40,4 +40,33 @@ module.exports = () => {
     })
   })
 
+  /**
+   * Delete method
+   * Used to delete a book based on its ID
+   */
+  app.delete('/api/deleteBook', (req,res) => {
+    Book.findOneAndDelete({_id: req.body._id}, function(err){
+      if(err) res.status(500).end(error.message);
+      return res.status(200).end('Book deleted successfully.');
+    })
+  })
+
+  /**
+   * PUT method
+   * Used to update a book based on its ID
+   */
+  app.put('/api/updateBook', (req, res) => {
+
+    const id = {_id: req.body._id}
+    const update = {
+      title: req.body.title,
+      description: req.body.description,
+      author: req.body.author,
+      publicationYear: req.body.publicationYear}
+
+    Book.findOneAndUpdate(id, update, function(err){
+        if(err) res.status(500).end(error.message);
+      return res.status(200).end('Book updated successfully.');
+      });
+  })
 };

@@ -1,12 +1,12 @@
 import React from 'react';
-import BooksCard from '../components/Books.jsx';
+import Books from '../components/Books.jsx';
 
 
-const Home = () => (
+const Home = (props) => (
   <div id="Home">
     <div className="container">
       <h1>Welcome to my e-Library</h1>
-      <BooksCard />
+      <Books tok={props.tok}/>
     </div>
   </div>
 );
