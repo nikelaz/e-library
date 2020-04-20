@@ -12,7 +12,6 @@ import Register from './routes/Register.jsx';
 import Login from './routes/Login.jsx';
 import AddBook from './routes/AddBook.jsx';
 import Edit from './routes/Edit.jsx';
-// import Books from './components/Books.jsx';
 import Search from './routes/Search.jsx';
 
 const Index = () => {
@@ -48,10 +47,7 @@ const Index = () => {
         <Route path="/add-book">
           <AddBook tok={tok} />
         </Route>
-        <Route path="/edit-book" component={Edit}/>
-        {/* <Route>
-          <Books tok={tok} />
-        </Route> */}
+        <Route path="/edit-book" component={Edit} />
         <Route path="/search">
           <Search />
         </Route>
