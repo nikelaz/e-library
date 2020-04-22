@@ -22,6 +22,9 @@ const renderLoginLinks = (props) => {
         <Link className="nav-link" to="/add-book">Add Book</Link>
       </li>
       <li className="nav-item">
+        <Link className="nav-link" to="/search">Search</Link>
+      </li>
+      <li className="nav-item">
         <span className="nav-link" onClick={() => { logout(props); }} style={{ cursor: 'pointer' }}>Logout</span>
       </li>
     </React.Fragment>
@@ -63,9 +66,6 @@ const Header = (props) => (
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
                   <Link className="nav-link" to="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/search">Search</Link>
                 </li>
                 { renderLoginLinks(props) }
               </ul>
