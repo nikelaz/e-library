@@ -41,6 +41,18 @@ module.exports = () => {
   });
 
   /**
+   * GET method
+   * Used to get all the books
+   */
+  app.get('/api/books/:id', (req, res) => {
+    Book.findById(req.params.id, (error, book) => {
+      if (error) return res.status(500).end(error.message);
+      
+      return res.json(book);
+    })
+  });
+
+  /**
    * GET search method
    * Searches all books fields for a string query occurence
    */
@@ -107,11 +119,12 @@ module.exports = () => {
       title: req.body.title,
       description: req.body.description,
       author: req.body.author,
-      publicationYear: req.body.publicationYear}
+      publicationYear: req.body.publicationYear
+    };
 
-    Book.findOneAndUpdate(id, update, function(err){
-        if(err) res.status(500).end(error.message);
+    Book.findByIdAndUpdate(id, update, (error) => {
+      if (error) res.status(500).end(error.message);
       return res.status(200).end('Book updated successfully.');
-      });
+    });
   })
 };

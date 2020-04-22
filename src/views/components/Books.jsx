@@ -45,34 +45,34 @@ const Books = (props) => {
     const mappedData = reversedArr.map((card, i) => {
         
         return( 
-            <div class="card">
+            <div class="card mb-2">
                 <div key={card} className="card-body">
-                    <h5 class="card-title">{card.title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{card.author}</h6>
-                    <p class="card-text">{card.description}</p>
-                    <p class="card-text">{card.publicationYear}</p>
+                    <h5 className="card-title">{card.title}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{card.author}</h6>
+                    <p className="card-text">{card.description}</p>
+                    <p className="card-text">{card.publicationYear}</p>
+                    <div className="d-flex">
+                      <Link to={{ pathname: '/edit-book', prop: { id: card._id }}} className="btn btn-light px-4 mr-3">Edit</Link>
+                      <button className="btn btn-danger px-4" onClick={(e) => { if (window.confirm('Are you sure you want to delete this book?')) { deleteBook(card._id) }; }}>Delete</button>
+                    </div>
                 </div>
-                <Link to={{pathname: '/edit-book', prop: {id: card._id}}}>
-                    <input type="button" style={{width: "8rem"}} value="Edit"/>
-                </Link>
-                <button className="btn btn-danger" style={{width: "8rem"}} onClick={(e) => {if(window.confirm('Are you sure you want to delete this book?')){deleteBook(card._id)};}}>Delete</button>
             </div>
         )
     })
 
     const mappedDataLogout = reversedArr.map((card, i) => {
-        
-        return( 
-            <div class="card">
-                <div key={card} className="card-body">
-                    <h5 class="card-title">{card.title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{card.author}</h6>
-                    <p class="card-text">{card.description}</p>
-                    <p class="card-text">{card.publicationYear}</p>
-                </div>
-            </div>
-        )
-    })
+      return
+      ( 
+        <div class="card">
+          <div key={card} className="card-body">
+            <h5 className="card-title">{card.title}</h5>
+            <h6 className="card-subtitle mb-2 text-muted">{card.author}</h6>
+            <p className="card-text">{card.description}</p>
+            <p className="card-text">{card.publicationYear}</p>
+          </div>
+        </div>
+      );
+    });
 
 
     if(props.tok){
@@ -81,7 +81,7 @@ const Books = (props) => {
             <Fragment>
                 { redirectToHome ? <Redirect to="/" /> : ''}  
                 <div>
-                    <h3>Books recently inserted</h3>
+                    <h3 className="mb-4">Books recently inserted</h3>
                     {mappedData}
                 </div>
             </Fragment>

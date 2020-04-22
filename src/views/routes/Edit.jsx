@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ErrorMessage from '../components/Error.jsx';
 import SuccessMessage from '../components/Success.jsx';
 import { Link } from 'react-router-dom';
@@ -12,9 +12,25 @@ const Edit = (props) => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [redirectToHome, setRedirectToHome] = useState(false);
-    
-    // _id taken from Link props
-    const id = props.location.prop
+    const [id, setId] = useState();
+
+    useEffect(() => {
+      if (!props.location || !props.location.prop || !props.location.prop.id) return;
+
+      const id = props.location.prop.id;
+      
+      setId(id);
+
+      fetch(`/api/books/${id}`)
+        .then(res => res.json())
+        .then(res => {
+          setAuthor(res.author);
+          setYear(res.publicationYear);
+          setTitle(res.title);
+          setDescription(res.description);
+        })
+        .catch(error => console.error(error));
+    }, [props]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +45,7 @@ const Edit = (props) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-                _id: id.id,
+                _id: id,
                 title,
                 description,
                 author,
@@ -66,24 +82,22 @@ const Edit = (props) => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
-              <input type="text" className="form-control" id="title" onChange={e => setTitle(e.target.value)} required />
+              <input type="text" className="form-control" id="title" value={title} onChange={e => setTitle(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input type="text" className="form-control" id="description" onChange={e => setDescription(e.target.value)} required />
+              <input type="text" className="form-control" id="description" value={description} onChange={e => setDescription(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="author">Author</label>
-              <input type="text" className="form-control" id="author" onChange={e => setAuthor(e.target.value)} required />
+              <input type="text" className="form-control" id="author" value={author} onChange={e => setAuthor(e.target.value)} required />
             </div>
-            <div className="form-group">
+            <div className="form-group mb-4">
               <label htmlFor="year">Year</label>
-              <input type="text" className="form-control" id="year" onChange={e => setYear(e.target.value)} required />
+              <input type="text" className="form-control" id="year" value={year} onChange={e => setYear(e.target.value)} required />
             </div>
-            <button type="submit" className="btn btn-primary">Save</button>
-            <Link to='/'>
-                    <input type="button" className="btn btn-primary" style={{background: "red"}} value="Cancel"/>
-            </Link>
+            <button type="submit" className="btn btn-primary mr-3 px-4">Save</button>
+            <Link to="/" className="btn btn-danger px-4">Cancel</Link>
           </form>
         </div>
       </div>
