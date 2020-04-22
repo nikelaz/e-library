@@ -10,6 +10,8 @@ const Search = () => {
   const search = query => {
     event.preventDefault();
 
+    if (!query) return;
+
     fetch(`/api/books/search/${query}`)
       .then(res => {
         if (res.ok) return res.json();
